@@ -278,8 +278,20 @@ def get_uid(network):
     Keeps on asking for a user ID that exists in the network
     until it succeeds. Then it returns it'''
 
-    # YOUR CODE GOES HERE
-    pass
+    ID_exists = False
+    while ID_exists is False:
+        try:
+            ID = int(input("Enter the ID of the user you are looking for: "))
+            for i in network:
+                if ID == i[0]:
+                    ID_exists = True
+                    break
+            if ID_exists is False:
+                print("ERROR: The ID you are looking for does not exist in the network.")
+        except:
+            print("ERROR: That was not an integer")
+    return ID
+
 
 
 ##############################
