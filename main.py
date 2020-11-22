@@ -164,16 +164,18 @@ def getCommonFriends(user1, user2, network):
     # find index for user1 and user2
     i_user1 = 0
     i_user2 = 0
-    for i in range(len(network)):
-        if network[i][0] == user1:
-            i_user1 = i
-            i = len(network)-1  # break out of loop. this is better than break
-    for i in range(len(network)):
-        if network[i][0] == user2:
-            i_user2 = i
-            i = len(network) - 1  # break out of loop. this is better than break
-    print(network[i_user1][1])
-    print(network[i_user2][1])
+    # for i in range(len(network)):
+    #     if network[i][0] == user1:
+    #         i_user1 = i
+    #         i = len(network)-1  # break out of loop. this is better than break
+    # for i in range(len(network)):
+    #     if network[i][0] == user2:
+    #         i_user2 = i
+    #         i = len(network) - 1  # break out of loop. this is better than break
+
+    i_user1 = binary_search_network(user1, network)
+    i_user2 = binary_search_network(user2, network)
+
     # find common friends
     for i in range(len(network[i_user1][1])):
         for j in range(len(network[i_user2][1])):
@@ -201,20 +203,28 @@ def recommend(user, network):
     If there is more than one person with whom you have the maximum number of friends in common
     return the one with the smallest ID. '''
 
-    stranger_list = list()  # list of IDs which are not yet friends with the user
-    stranger_with_most_common_friends = int()  # ID of the stranger with the most common friends with user
-
-    # look for the user's list of friends from the network
-    user_friends = list()  # list of the user's friends
     # # linear search for the user's tuple index in the network
     # for i in range(len(network)):
     #     if user == network[i][0]:
     #         user_friends = network[i][1].copy()
 
+    # look for the user's list of friends from the network
     # binary for the user's tuple index in the network
-    user_index = binary_search_network(user, network)
-    user_friends = network[user_index][1].copy()
-    print(user_friends)
+    # user_index = binary_search_network(user, network)
+    # user_friends = network[user_index][1].copy()
+
+    length_most_common_friends = 0
+    recommended_ID = -1  # ID of the user that will be recommended to the user
+    for i in network:
+        if user != i[0]:
+            common_friends = getCommonFriends(user, i[0], network)  # list of common friends between the user and the user we are comparing to
+            if len(common_friends) > length_most_common_friends:
+                length_most_common_friends = len(common_friends)
+                recommended_ID = i[0]
+
+    return recommended_ID
+
+
 
     # find the user with the most mutual friends
 
