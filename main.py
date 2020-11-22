@@ -186,9 +186,14 @@ def k_or_more_friends(network, k):
     Given a 2D-list for friendship network and non-negative integer k,
     returns the number of users who have at least k friends in the network
     Precondition: k is non-negative'''
-    # YOUR CODE GOES HERE
-    pass
+    num_users = 0
+    for i in network:
+        if len(i[1]) >= k:
+            num_users += 1
+    return num_users
 
+# print(k_or_more_friends([(0, [1, 2, 3]), (1, [0, 4, 6, 7, 9]), (2, [0, 3, 6, 8, 9]), (3, [0, 2, 8, 9]), (4, [1, 6, 7, 8]),
+# (5, [9]), (6, [1, 2, 4, 8]), (7, [1, 4, 8]), (8, [2, 3, 4, 6, 7]), (9, [1, 2, 3, 5])], 5))
 
 def maximum_num_friends(network):
     '''(2Dlist)->int
@@ -233,8 +238,13 @@ def knows_everyone(network):
     returns True if there is a user in the network who knows everyone
     and False otherwise'''
 
-    # YOUR CODE GOES HERE
-    pass
+    # reads the first "word" in the textfile and convert it to an int
+    total_users = int(open(file_name).read().split()[0])
+    max_possible_friends = total_users - 1
+    for i in network:
+        if len(i[1]) == max_possible_friends:
+            return True
+    return False
 
 
 ####### CHATTING WITH USER CODE:
