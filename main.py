@@ -196,8 +196,15 @@ def maximum_num_friends(network):
     Given a 2D-list for friendship network,
     returns the maximum number of friends any user in the network has.
     '''
-    # YOUR CODE GOES HERE
-    pass
+    # returns the number of friends the user with the most friends has
+    highest_friends = 0
+    for i in network:
+        if len(i[1]) > highest_friends:
+            highest_friends = len(i[1])
+    return highest_friends
+
+# print(maximum_num_friends([(0, [1, 2, 3]), (1, [0, 4, 6, 7, 9]), (2, [0, 3, 6, 8, 9]), (3, [0, 2, 8, 9]), (4, [1, 6, 7, 8]),
+# (5, [9]), (6, [1, 2, 4, 8]), (7, [1, 4, 8]), (8, [2, 3, 4, 6, 7]), (9, [1, 2, 3, 5])]))
 
 
 def people_with_most_friends(network):
@@ -211,9 +218,11 @@ def people_with_most_friends(network):
 def average_num_friends(network):
     '''(2Dlist)->number
     Returns an average number of friends overs all users in the network'''
-
-    # YOUR CODE GOES HERE
-    pass
+    total_friends = 0
+    for i in network:
+        total_friends += len(i[1])
+    avg = float(total_friends / len(network))
+    return avg
 
 
 def knows_everyone(network):
@@ -313,5 +322,3 @@ print("Here is the list of common friends of", uid1, "and", uid2)
 common = getCommonFriends(uid1, uid2, net)
 for item in common:
     print(item, end=" ")
-
-
