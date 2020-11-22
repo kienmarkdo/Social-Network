@@ -217,18 +217,14 @@ def recommend(user, network):
     recommended_ID = -1  # ID of the user that will be recommended to the user
     for i in network:
         if user != i[0] and i[0] not in user_friends:
-            common_friends = getCommonFriends(user, i[0], network)  # list of common friends between the user and the user we are comparing to
+            # list of common friends between the user and the user we are comparing to
+            common_friends = getCommonFriends(user, i[0], network)
+            # find the user with the most mutual friends
             if len(common_friends) > length_most_common_friends:
                 length_most_common_friends = len(common_friends)
                 recommended_ID = i[0]
 
     return recommended_ID
-
-
-
-    # find the user with the most mutual friends
-
-    # return that user
 
 
 def k_or_more_friends(network, k):
