@@ -210,13 +210,13 @@ def recommend(user, network):
 
     # look for the user's list of friends from the network
     # binary for the user's tuple index in the network
-    # user_index = binary_search_network(user, network)
-    # user_friends = network[user_index][1].copy()
+    user_index = binary_search_network(user, network)
+    user_friends = network[user_index][1].copy()
 
     length_most_common_friends = 0
     recommended_ID = -1  # ID of the user that will be recommended to the user
     for i in network:
-        if user != i[0]:
+        if user != i[0] and i[0] not in user_friends:
             common_friends = getCommonFriends(user, i[0], network)  # list of common friends between the user and the user we are comparing to
             if len(common_friends) > length_most_common_friends:
                 length_most_common_friends = len(common_friends)
