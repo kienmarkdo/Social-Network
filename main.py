@@ -105,14 +105,14 @@ def create_network(file_name):
 
     # remove all duplicate IDs and put them into a list of IDs
     for i in range(len(friends)):
-        # if friends[i][0] not in list_IDs:
-        #     list_IDs.append(friends[i][0])
-        # if friends[i][1] not in list_IDs:
-        #     list_IDs.append(friends[i][1])
-        if binary_search(list_IDs, friends[i][0]) is False:
+        if friends[i][0] not in list_IDs:
             list_IDs.append(friends[i][0])
-        if binary_search(list_IDs, friends[i][1]) is False:
+        if friends[i][1] not in list_IDs:
             list_IDs.append(friends[i][1])
+        # if binary_search(list_IDs, friends[i][0]) is False:
+        #     list_IDs.append(friends[i][0])
+        # if binary_search(list_IDs, friends[i][1]) is False:
+        #     list_IDs.append(friends[i][1])
     list_IDs.sort()
     # print(list_IDs)
 
@@ -126,7 +126,6 @@ def create_network(file_name):
         tupples = (list_IDs[j], temp_network.copy())
         temp_network.clear()
         network.append(tupples)
-    # print(network)
     return network
 
 
@@ -211,7 +210,10 @@ def people_with_most_friends(network):
     '''(2Dlist)->1D list
     Given a 2D-list for friendship network, returns a list of people (IDs) who have the most friends in network.'''
     max_friends = []
-    # YOUR CODE GOES HERE
+    hf = maximum_num_friends(network)
+    for i in network:
+        if len(i[1]) == hf:
+            max_friends.append(i[0])
     return max_friends
 
 
@@ -322,3 +324,5 @@ print("Here is the list of common friends of", uid1, "and", uid2)
 common = getCommonFriends(uid1, uid2, net)
 for item in common:
     print(item, end=" ")
+
+
