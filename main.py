@@ -2,26 +2,50 @@ import random
 
 def binary_search(l, v):
     """
-    (list, int) -> bool
+    (list, int) -> int
 
-    Prend une liste et un entier v. Retourne True si l'entier v est dans la liste.
+    Prend une liste et un entier v. Retourne l'index de l'entier v si'il exist dans la liste.
     Précondition: la liste est triée
     """
     gauche = 0
     droite = len(l)-1
     milieu = int(droite/2)
-    nombre_pas = 0
     while gauche <= droite:
-        nombre_pas += 1
         if v == l[milieu]:
-            return True
+            return milieu
         elif v < l[milieu]:
             droite = milieu-1
             milieu = int((gauche+droite)//2)
         elif v > l[milieu]:
             gauche = milieu+1
             milieu = int((gauche+droite)//2)
-    return False
+    return -1
+
+def binary_search_network(user, network):
+    """
+    (int, list) -> int
+    Searches for the user in the network and returns the index of the tuple that contains the user.
+    Returns -1 if the user does not exist.
+    Preconditon: the network is sorted from lowest to highest
+
+    >>> 2 , [(0, [1, 2, 3]), (1, [0, 4, 6, 7, 9]), (2, [0, 3, 6, 8, 9]), (3, [0, 2, 8, 9]), (4, [1, 6, 7, 8]),
+    (5, [9]), (6, [1, 2, 4, 8]), (7, [1, 4, 8]), (8, [2, 3, 4, 6, 7]), (9, [1, 2, 3, 5])]
+    Output: 3
+    """
+    left = 0
+    right = len(network) - 1
+    mid = int(right / 2)
+    while left <= right:
+        if user == network[mid][0]:
+            return mid
+        elif user < network[mid][0]:
+            right = mid - 1
+            mid = int((left + right) // 2)
+        elif user > network[mid][0]:
+            left = mid + 1
+            mid = int((left + right) // 2)
+    return -1
+
 
 def create_network(file_name):
     '''(str)->list of tuples where each tuple has 2 elements the first is int and the second is list of int
@@ -177,8 +201,24 @@ def recommend(user, network):
     If there is more than one person with whom you have the maximum number of friends in common
     return the one with the smallest ID. '''
 
-    # YOUR CODE GOES HERE
-    pass
+    stranger_list = list()  # list of IDs which are not yet friends with the user
+    stranger_with_most_common_friends = int()  # ID of the stranger with the most common friends with user
+
+    # look for the user's list of friends from the network
+    user_friends = list()  # list of the user's friends
+    # # linear search for the user's tuple index in the network
+    # for i in range(len(network)):
+    #     if user == network[i][0]:
+    #         user_friends = network[i][1].copy()
+
+    # binary for the user's tuple index in the network
+    user_index = binary_search_network(user, network)
+    user_friends = network[user_index][1].copy()
+    print(user_friends)
+
+    # find the user with the most mutual friends
+
+    # return that user
 
 
 def k_or_more_friends(network, k):
